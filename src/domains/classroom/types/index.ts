@@ -1,13 +1,13 @@
 // Classroom Domain Types
-import { 
-  ClassroomCourse, 
-  ClassroomStudent, 
-  ClassroomAssignment, 
-  StudentSubmission 
-} from '@/lib/google-classroom';
+import {
+  ClassroomCourse,
+  ClassroomStudent,
+  ClassroomAssignment,
+  StudentSubmission,
+} from "@/lib/google-classroom";
 
 // Re-export Google Classroom types
-export type { ClassroomCourse, ClassroomStudent, ClassroomAssignment, StudentSubmission };
+export type {ClassroomCourse, ClassroomStudent, ClassroomAssignment, StudentSubmission};
 
 // UI Data Types
 export interface DashboardStats {
@@ -29,7 +29,7 @@ export interface StudentProgressData {
   courseId: string;
   courseName: string;
   progress: number;
-  status: 'active' | 'inactive' | 'at-risk';
+  status: "active" | "inactive" | "at-risk";
   lastActivity: string;
   assignmentsCompleted: number;
   totalAssignments: number;
@@ -46,7 +46,7 @@ export interface CourseData {
   assignmentCount: number;
   completionRate: number;
   lastActivity: string;
-  status: 'active' | 'archived';
+  status: "active" | "archived";
 }
 
 export interface AssignmentData {
@@ -61,12 +61,12 @@ export interface AssignmentData {
   totalStudents: number;
   completionRate: number;
   averageGrade?: number;
-  status: 'published' | 'draft';
+  status: "published" | "draft";
 }
 
 export interface ActivityData {
   id: string;
-  type: 'assignment_created' | 'assignment_submitted' | 'grade_posted' | 'student_joined';
+  type: "assignment_created" | "assignment_submitted" | "grade_posted" | "student_joined";
   title: string;
   description: string;
   timestamp: Date;
@@ -83,55 +83,55 @@ export interface ClassroomDataState {
   students: ClassroomStudent[];
   assignments: ClassroomAssignment[];
   submissions: StudentSubmission[];
-  
+
   // Datos adaptados para la UI
   dashboardStats: DashboardStats | null;
   studentProgress: StudentProgressData[];
   courseData: CourseData[];
   assignmentData: AssignmentData[];
   recentActivity: ActivityData[];
-  
+
   // Estado de carga
   isLoading: boolean;
   isLoadingCourses: boolean;
   isLoadingStudents: boolean;
   isLoadingAssignments: boolean;
   isLoadingSubmissions: boolean;
-  
+
   // Errores
   error: string | null;
-  
+
   // Filtros
   selectedCourseId: string | null;
   dateRange: string;
 }
 
 export type ClassroomDataAction =
-  | { type: 'SET_LOADING'; payload: { key: keyof ClassroomDataState; value: boolean } }
-  | { type: 'SET_ERROR'; payload: string | null }
-  | { type: 'SET_COURSES'; payload: ClassroomCourse[] }
-  | { type: 'SET_STUDENTS'; payload: ClassroomStudent[] }
-  | { type: 'SET_ASSIGNMENTS'; payload: ClassroomAssignment[] }
-  | { type: 'SET_SUBMISSIONS'; payload: StudentSubmission[] }
-  | { type: 'SET_SELECTED_COURSE'; payload: string | null }
-  | { type: 'SET_DATE_RANGE'; payload: string }
-  | { type: 'UPDATE_ADAPTED_DATA' }
-  | { type: 'CLEAR_DATA' };
+  | {type: "SET_LOADING"; payload: {key: keyof ClassroomDataState; value: boolean}}
+  | {type: "SET_ERROR"; payload: string | null}
+  | {type: "SET_COURSES"; payload: ClassroomCourse[]}
+  | {type: "SET_STUDENTS"; payload: ClassroomStudent[]}
+  | {type: "SET_ASSIGNMENTS"; payload: ClassroomAssignment[]}
+  | {type: "SET_SUBMISSIONS"; payload: StudentSubmission[]}
+  | {type: "SET_SELECTED_COURSE"; payload: string | null}
+  | {type: "SET_DATE_RANGE"; payload: string}
+  | {type: "UPDATE_ADAPTED_DATA"}
+  | {type: "CLEAR_DATA"};
 
 export interface ClassroomDataContextType {
   state: ClassroomDataState;
-  
+
   // Acciones de carga de datos
   loadCourses: () => Promise<void>;
   loadStudents: (courseId?: string) => Promise<void>;
   loadAssignments: (courseId?: string) => Promise<void>;
   loadSubmissions: (courseId?: string, assignmentId?: string) => Promise<void>;
   loadAllData: () => Promise<void>;
-  
+
   // Acciones de filtros
   setSelectedCourse: (courseId: string | null) => void;
   setDateRange: (range: string) => void;
-  
+
   // Utilidades
   refreshData: () => Promise<void>;
   clearError: () => void;
@@ -154,13 +154,13 @@ export interface UseClassroomReturn {
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
-  
+
   // Datos
   courses: ClassroomCourse[];
   students: ClassroomStudent[];
   assignments: ClassroomAssignment[];
   courseStats: CourseStats | null;
-  
+
   // Funciones
   authenticate: () => void;
   fetchCourses: () => Promise<void>;

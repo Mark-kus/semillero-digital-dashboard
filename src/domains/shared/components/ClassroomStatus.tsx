@@ -1,18 +1,16 @@
-'use client';
+"use client";
 
-import { useClassroom } from '../../classroom/hooks/useClassroom';
+import {useClassroom} from "../../classroom/hooks/useClassroom";
 
 export function ClassroomStatus() {
-  const { isAuthenticated, isLoading, courses } = useClassroom();
+  const {isAuthenticated, isLoading, courses} = useClassroom();
 
   if (isLoading) {
     return (
-      <div className="bg-blue-800 rounded-lg p-3">
-        <p className="text-xs text-blue-200">
-          Verificando conexión...
-        </p>
-        <div className="flex items-center mt-1">
-          <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2 animate-pulse"></div>
+      <div className="rounded-lg bg-blue-800 p-3">
+        <p className="text-xs text-blue-200">Verificando conexión...</p>
+        <div className="mt-1 flex items-center">
+          <div className="mr-2 h-2 w-2 animate-pulse rounded-full bg-yellow-400" />
           <span className="text-xs text-yellow-300">Conectando</span>
         </div>
       </div>
@@ -21,12 +19,10 @@ export function ClassroomStatus() {
 
   if (!isAuthenticated) {
     return (
-      <div className="bg-blue-800 rounded-lg p-3">
-        <p className="text-xs text-blue-200">
-          Google Classroom
-        </p>
-        <div className="flex items-center mt-1">
-          <div className="w-2 h-2 bg-red-400 rounded-full mr-2"></div>
+      <div className="rounded-lg bg-blue-800 p-3">
+        <p className="text-xs text-blue-200">Google Classroom</p>
+        <div className="mt-1 flex items-center">
+          <div className="mr-2 h-2 w-2 rounded-full bg-red-400" />
           <span className="text-xs text-red-300">Desconectado</span>
         </div>
       </div>
@@ -34,12 +30,10 @@ export function ClassroomStatus() {
   }
 
   return (
-    <div className="bg-blue-800 rounded-lg p-3">
-      <p className="text-xs text-blue-200">
-        Conectado con Google Classroom
-      </p>
-      <div className="flex items-center mt-1">
-        <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+    <div className="rounded-lg bg-blue-800 p-3">
+      <p className="text-xs text-blue-200">Conectado con Google Classroom</p>
+      <div className="mt-1 flex items-center">
+        <div className="mr-2 h-2 w-2 rounded-full bg-green-400" />
         <span className="text-xs text-green-300">
           En línea {courses.length > 0 && `(${courses.length} cursos)`}
         </span>

@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { Dashboard } from '@/domains/dashboard';
+import {useEffect} from "react";
+import {useSearchParams, useRouter} from "next/navigation";
+
+import {Dashboard} from "@/domains/dashboard";
 
 export default function DashboardPage() {
   const searchParams = useSearchParams();
@@ -10,9 +11,10 @@ export default function DashboardPage() {
 
   // Limpiar parámetros de autenticación de la URL
   useEffect(() => {
-    const authSuccess = searchParams.get('auth');
-    if (authSuccess === 'success') {
-      router.replace('/dashboard');
+    const authSuccess = searchParams.get("auth");
+
+    if (authSuccess === "success") {
+      router.replace("/dashboard");
     }
   }, [searchParams, router]);
 
