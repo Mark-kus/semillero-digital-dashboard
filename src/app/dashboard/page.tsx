@@ -1,11 +1,11 @@
 "use client";
 
-import {useEffect} from "react";
+import {Suspense, useEffect} from "react";
 import {useSearchParams, useRouter} from "next/navigation";
 
 import {Dashboard} from "@/domains/dashboard";
 
-export default function DashboardPage() {
+function DashboardContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -20,4 +20,12 @@ export default function DashboardPage() {
 
   // ClassroomAuth se encarga de toda la lógica de autenticación
   return <Dashboard />;
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<div>Cargando dashboard...</div>}>
+      <DashboardContent />
+    </Suspense>
+  );
 }

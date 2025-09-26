@@ -70,9 +70,7 @@ export class StudentAnalyzer {
       },
       analysis: {
         hasProfilePhoto: !!student.profile?.photoUrl,
-        hasCompleteName: !!(
-          student.profile?.name?.givenName && student.profile?.name?.familyName
-        ),
+        hasCompleteName: !!(student.profile?.name?.givenName && student.profile?.name?.familyName),
         emailDomain: emailDomain,
         joinDate: student.joinTime ? new Date(student.joinTime) : null,
         accountType: this.determineAccountType(emailDomain),
@@ -85,20 +83,13 @@ export class StudentAnalyzer {
    * Analiza una lista de estudiantes y genera estadísticas
    */
   static analyzeStudentList(students: StudentInfo[]) {
-    const analyzedStudents = students.map((student) =>
-      this.analyzeStudent(student)
-    );
+    const analyzedStudents = students.map((student) => this.analyzeStudent(student));
 
     const stats = {
       total: students.length,
-      withPhotos: analyzedStudents.filter((s) => s.analysis.hasProfilePhoto)
-        .length,
-      withCompleteNames: analyzedStudents.filter(
-        (s) => s.analysis.hasCompleteName
-      ).length,
-      emailDomains: [
-        ...new Set(analyzedStudents.map((s) => s.analysis.emailDomain)),
-      ],
+      withPhotos: analyzedStudents.filter((s) => s.analysis.hasProfilePhoto).length,
+      withCompleteNames: analyzedStudents.filter((s) => s.analysis.hasCompleteName).length,
+      emailDomains: [...new Set(analyzedStudents.map((s) => s.analysis.emailDomain))],
       accountTypes: this.getAccountTypeDistribution(analyzedStudents),
       joinDates: analyzedStudents
         .filter((s) => s.analysis.joinDate)
@@ -116,32 +107,15 @@ export class StudentAnalyzer {
   /**
    * Determina el tipo de cuenta basado en el dominio del email
    */
-  private static determineAccountType(
-    domain: string
-  ): "personal" | "institutional" | "unknown" {
-    const personalDomains = [
-      "gmail.com",
-      "hotmail.com",
-      "yahoo.com",
-      "outlook.com",
-    ];
-    const institutionalIndicators = [
-      "edu",
-      "ac",
-      "school",
-      "colegio",
-      "universidad",
-    ];
+  private static determineAccountType(domain: string): "personal" | "institutional" | "unknown" {
+    const personalDomains = ["gmail.com", "hotmail.com", "yahoo.com", "outlook.com"];
+    const institutionalIndicators = ["edu", "ac", "school", "colegio", "universidad"];
 
     if (personalDomains.includes(domain.toLowerCase())) {
       return "personal";
     }
 
-    if (
-      institutionalIndicators.some((indicator) =>
-        domain.toLowerCase().includes(indicator)
-      )
-    ) {
+    if (institutionalIndicators.some((indicator) => domain.toLowerCase().includes(indicator))) {
       return "institutional";
     }
 
@@ -189,19 +163,19 @@ export class StudentAnalyzer {
 
     if (stats.withPhotos / stats.total < 0.5) {
       recommendations.push(
-        "Considerar solicitar a los estudiantes que agreguen una foto de perfil para facilitar la identificación"
+        "Considerar solicitar a los estudiantes que agreguen una foto de perfil para facilitar la identificación",
       );
     }
 
     if (stats.withCompleteNames / stats.total < 0.8) {
       recommendations.push(
-        "Verificar que los estudiantes tengan sus nombres completos en sus perfiles"
+        "Verificar que los estudiantes tengan sus nombres completos en sus perfiles",
       );
     }
 
     if (stats.accountTypes.personal > stats.accountTypes.institutional) {
       recommendations.push(
-        "La mayoría usa cuentas personales - considerar políticas de uso de cuentas institucionales"
+        "La mayoría usa cuentas personales - considerar políticas de uso de cuentas institucionales",
       );
     }
 

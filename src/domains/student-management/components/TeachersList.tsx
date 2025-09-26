@@ -5,7 +5,7 @@ interface TeachersListProps {
   userRole: string;
 }
 
-export function TeachersList({userRole}: TeachersListProps) {
+export function TeachersList({}: TeachersListProps) {
   return (
     <div className="p-6">
       <h2 className="mb-4 text-2xl font-bold">Lista de Profesores</h2>

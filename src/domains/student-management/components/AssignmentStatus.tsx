@@ -5,7 +5,7 @@ interface AssignmentStatusProps {
   userRole: string;
 }
 
-export function AssignmentStatus({userRole}: AssignmentStatusProps) {
+export function AssignmentStatus({}: AssignmentStatusProps) {
   return (
     <div className="p-6">
       <h2 className="mb-4 text-2xl font-bold">Estado de Entregas</h2>
